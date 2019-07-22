@@ -18,11 +18,11 @@ module.exports = {
     stats: 'minimal', // quiet command line stats
     overlay: true, // overlay errors in the browser
     historyApiFallback: true, // all requests will be sent to index.html - lets react router handle all changes
+    open: true,
     // these 3 here are for an open issue in webpack when using chrome
     disableHostCheck: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
-    https: false,
-    open: true
+    https: false
   },
   plugins: [
     new HtmlWebpackPlugin({
