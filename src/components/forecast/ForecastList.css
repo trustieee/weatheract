@@ -1,0 +1,5 @@
+.forecast-list {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 100%;
+}

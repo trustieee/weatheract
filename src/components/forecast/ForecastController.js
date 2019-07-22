@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import Title from './ForecastTitle';
 import ForecastList from './ForecastList';
-import './ForecastController.css';
+import days from '../../../test/mock';
 
 class ForecastController extends Component {
   render() {
     return (
-      <div className="forecast-controller">
-        <div>forecasts</div>
-        <Title />
-        <ForecastList />
-      </div>
+      <>
+        <ForecastList days={days} />
+      </>
     );
   }
 }

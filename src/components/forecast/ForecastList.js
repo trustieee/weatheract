@@ -1,13 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Day from './ForecastDay';
+import './ForecastList.css';
 
-function ForecastList() {
-  const days = [];
+ForecastList.propTypes = {
+  days: PropTypes.array.isRequired
+};
 
-  const renderDay = day => {
-    <div>day</div>;
-  };
-
-  return <div>{days.map(day => renderDay(day))}</div>;
+function ForecastList(props) {
+  const days = props.days;
+  return (
+    <div className="forecast-list">
+      {days.map(day => (
+        <Day key={day.date} day={day} />
+      ))}
+    </div>
+  );
 }
 
 export default ForecastList;

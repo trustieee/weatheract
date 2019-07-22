@@ -42,7 +42,7 @@ module.exports = {
         use: ['babel-loader', 'eslint-loader']
       },
       {
-        test: /(\.css)$/,
+        test: /\.(css)$/,
         // combination allows us to import css and webpack will bundle it all into a single file
         use: ['style-loader', 'css-loader']
       }
