@@ -1,4 +1,5 @@
-.app-header {
+header.app-header {
   text-align: center;
-  background-color: turquoise;
+  color: white;
+  background-color: black;
 }

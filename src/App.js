@@ -1,31 +1,32 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import ForecastController from './components/forecast/ForecastController';
 import Navigation from './components/nav/Navigation';
 import AboutPage from './components/about/AboutPage';
-import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NotFoundPage from './components/common/NotFoundPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 const App = () => {
   return (
-    <div className="app-wrapper">
+    <>
       <Header />
       <Router>
-        <div className="app-body">
+        <div id="app-body">
           <Navigation />
-          <div className="app-main">
+          <main className="app-main">
             <Switch>
               <Route path="/" exact component={ForecastController} />
               <Route path="/about" component={AboutPage} />
               <Route component={NotFoundPage} />
             </Switch>
-          </div>
+          </main>
         </div>
       </Router>
       <Footer />
-    </div>
+    </>
   );
 };
 

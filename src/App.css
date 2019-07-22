@@ -1,17 +1,10 @@
-.app-wrapper {
+div#app-body {
+  flex: 1;
   display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background-color: black;
+  flex-direction: row;
 }
 
-.app-body {
-  display: flex;
+main.app-main {
   flex: 1;
-  background-color: blue;
-}
-
-.app-main {
-  flex: 1;
-  background-color: yellow;
+  background-color: white;
 }

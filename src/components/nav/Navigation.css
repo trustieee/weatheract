@@ -1,4 +1,5 @@
-.app-navigation {
+nav.app-nav {
+  display: flex;
+  flex-direction: column;
   background-color: green;
-  flex: -1;
 }

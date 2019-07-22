@@ -4,18 +4,10 @@ import { Link } from 'react-router-dom';
 
 function Navigation() {
   return (
-    <div className="app-navigation">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Forecast</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <nav className="app-nav">
+      <Link to="/">Forecast</Link>
+      <Link to="/about">About</Link>
+    </nav>
   );
 }
 

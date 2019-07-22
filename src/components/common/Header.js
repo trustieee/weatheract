@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 
 function Header() {
-  return <div className="app-header">foo</div>;
+  return <header className="app-header">{'// weatheract'}</header>;
 }
 
 export default Header;
