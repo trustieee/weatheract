@@ -1,10 +1,10 @@
 #app-body {
   flex: 1;
   display: flex;
-  flex-direction: row;
 }
 
 main.app-main {
+  display: flex;
   flex: 1;
   background-color: white;
 }

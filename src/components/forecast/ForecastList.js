@@ -1,19 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Day from './ForecastDay';
+import ForecastDay from './ForecastDay';
 import './ForecastList.css';
 
 ForecastList.propTypes = {
-  days: PropTypes.array.isRequired
+  forecast: PropTypes.shape({
+    city: PropTypes.shape({
+      coord: PropTypes.shape({
+        lat: PropTypes.number,
+        lon: PropTypes.number
+      }),
+      country: PropTypes.string,
+      id: PropTypes.number,
+      name: PropTypes.string
+    }),
+    dates: PropTypes.object
+  })
 };
 
 function ForecastList(props) {
-  const days = props.days;
+  const forecast = props.forecast;
+  if (!forecast || !forecast.city || !forecast.city.name || !forecast.dates) {
+    return <div>No weather data</div>;
+  }
+
   return (
-    <div className="forecast-list">
-      {days.map(day => (
-        <Day key={day.date} day={day} />
-      ))}
+    <div className="forecast-list-container">
+      <div className="forecast-list-header">{forecast.city.name}</div>
+      <div className="forecast-list">
+        {Object.keys(forecast.dates).map(day => (
+          <div key={day} className="forecast-list-day-container">
+            <ForecastDay day={forecast.dates[day]} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

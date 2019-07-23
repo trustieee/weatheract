@@ -2,10 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ForecastDay.css';
 
-Day.propTypes = {
-  day: PropTypes.shape({
-    date: PropTypes.string.isRequired
-  })
+ForecastDay.propTypes = {
+  day: PropTypes.arrayOf(
+    PropTypes.shape({
+      hour: PropTypes.shape({
+        condition: PropTypes.string.isRequired,
+        temperature: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired
+      })
+    })
+  )
 };
 
 const getRandomColor = () =>
@@ -13,13 +19,16 @@ const getRandomColor = () =>
     Math.floor(Math.random() * 8)
   ];
 
-function Day(props) {
+function ForecastDay(props) {
   const day = props.day;
+  if (day) console.log(day);
   return (
     <div className="forecast-day" style={{ backgroundColor: getRandomColor() }}>
-      {day.date}
+      {Object.values(day).map((d, i) => {
+        return <div key={i}>{d.hour.time}</div>;
+      })}
     </div>
   );
 }
 
-export default Day;
+export default ForecastDay;

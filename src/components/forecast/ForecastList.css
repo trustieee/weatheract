@@ -1,5 +1,20 @@
+.forecast-list-header {
+  text-align: center;
+}
+
 .forecast-list {
   display: flex;
-  flex-flow: row nowrap;
-  min-height: 100%;
+  flex: 1;
+}
+
+.forecast-list-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.forecast-list-day-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
