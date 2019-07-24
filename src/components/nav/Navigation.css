@@ -1,5 +1,12 @@
 nav.app-nav {
   display: flex;
-  background-color: #f1f0e8;
+  background-color: #353232;
   flex-direction: column;
+  width: 100px;
+  text-align: center;
+}
+
+nav.app-nav > a {
+  color: cornflowerblue;
+  border-bottom: 1px solid #6a8ac7;
 }
