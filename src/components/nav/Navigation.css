@@ -9,4 +9,5 @@ nav.app-nav {
 nav.app-nav > a {
   color: cornflowerblue;
   border-bottom: 1px solid #6a8ac7;
+  font-size: 19px;
 }

@@ -15,7 +15,9 @@ ForecastDay.propTypes = {
       })
     ),
     sums: PropTypes.object.isRequired
-  })
+  }),
+  toScale: PropTypes.string.isRequired,
+  fromScale: PropTypes.string.isRequired
 };
 
 function ForecastDay(props) {
@@ -24,8 +26,12 @@ function ForecastDay(props) {
     <div className="forecast-day">
       <table className="table table-hover table-bordered">
         <thead>
-          <th>Time</th>
-          <th>Temp</th>
+          <tr>
+            <th>Time</th>
+            <th>
+              Temp <sup>({props.toScale})</sup>
+            </th>
+          </tr>
         </thead>
         <tbody>
           {Object.values(hours)
@@ -36,9 +42,9 @@ function ForecastDay(props) {
                   <td>{d.hour.time}</td>
                   <td>
                     {tempUtils.convert({
-                      toScale: tempUtils.FAHRENHEIT,
+                      toScale: props.toScale,
                       value: d.hour.temperature,
-                      fromScale: tempUtils.KELVIN
+                      fromScale: props.fromScale
                     })}
                   </td>
                 </tr>

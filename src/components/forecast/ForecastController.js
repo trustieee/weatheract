@@ -19,7 +19,8 @@ class ForecastController extends Component {
       forecast: {
         city: {},
         dates: {}
-      }
+      },
+      zip: 32765
     };
   }
 
@@ -33,12 +34,14 @@ class ForecastController extends Component {
 
   formattedTime(time) {
     const date = new Date(time * 1000);
-    return date.toLocaleTimeString();
+    return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   }
 
   componentDidMount() {
     fetch(
-      'https://cors-anywhere.herokuapp.com/https://samples.openweathermap.org/data/2.5/forecast/hourly?zip=94040&appid=06fac84e7834a80aa600d399404a3ffd'
+      `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?zip=${
+        this.state.zip
+      }&appid=06fac84e7834a80aa600d399404a3ffd`
     )
       .then(resp => resp.json())
       .then(json => {

@@ -1,11 +1,11 @@
 header.app-header {
   text-align: center;
   background-color: #353232;
-  color: cornflowerblue;
   text-align: right;
 }
 
 header.app-header > h2 {
   margin-right: 15px;
   font-family: 'Courier New', Courier, monospace;
+  color: cornflowerblue;
 }
