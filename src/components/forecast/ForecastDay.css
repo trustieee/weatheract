@@ -8,3 +8,15 @@
   text-align: center;
   width: 100%;
 }
+
+.forecast-day table > tbody > tr > td:hover {
+  color: cornflowerblue;
+}
+
+.forecast-day-date-header {
+  text-align: center;
+  color: cornflowerblue;
+  opacity: 0.6;
+  margin: 0;
+  border-bottom: 1px solid cornflowerblue;
+}

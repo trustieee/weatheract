@@ -52,6 +52,7 @@ function ForecastList(props) {
               day={forecast.dates[day]}
               toScale={toScale}
               fromScale={fromScale}
+              date={day}
             />
           </div>
         ))}
