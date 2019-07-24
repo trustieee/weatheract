@@ -31,6 +31,11 @@ class ForecastController extends Component {
     return `${month}-${day}-${year}`;
   }
 
+  formattedTime(time) {
+    const date = new Date(time * 1000);
+    return date.toLocaleTimeString();
+  }
+
   componentDidMount() {
     fetch(
       'https://cors-anywhere.herokuapp.com/https://samples.openweathermap.org/data/2.5/forecast/hourly?zip=94040&appid=06fac84e7834a80aa600d399404a3ffd'
@@ -43,20 +48,32 @@ class ForecastController extends Component {
             const key = this.formattedDate(obj.dt);
             const item = {
               hour: {
-                time: obj.dt_txt.split(' ')[1],
+                time: this.formattedTime(obj.dt),
                 temperature: obj.main.temp,
                 condition: condition(obj.weather[0].id)
               }
             };
             if (Object.keys(map).indexOf(key) === -1) {
-              map[key] = new Array(item);
+              map[key] = { hours: [], sums: {} };
+              map[key].hours = new Array(item);
             } else {
-              map[key].push(item);
+              map[key].hours.push(item);
             }
             return map;
           }, {})
         };
-
+        let groups = {};
+        Object.keys(forecast.dates).forEach(date => {
+          forecast.dates[date].hours.forEach(d => {
+            if (Object.keys(groups).indexOf(d.hour.condition) === -1) {
+              groups[d.hour.condition] = 1;
+            } else {
+              groups[d.hour.condition] += 1;
+            }
+          });
+          forecast.dates[date].sums = { ...groups };
+          groups = {};
+        });
         this.setState({ forecast: forecast });
       });
   }

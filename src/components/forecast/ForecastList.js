@@ -23,10 +23,9 @@ function ForecastList(props) {
   if (!forecast || !forecast.city || !forecast.city.name || !forecast.dates) {
     return <div>No weather data</div>;
   }
-
   return (
     <div className="forecast-list-container">
-      <div className="forecast-list-header">{forecast.city.name}</div>
+      <h3 className="forecast-list-header">{forecast.city.name}</h3>
       <div className="forecast-list">
         {Object.keys(forecast.dates).map(day => (
           <div key={day} className="forecast-list-day-container">

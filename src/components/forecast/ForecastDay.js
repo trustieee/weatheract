@@ -1,32 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ForecastDay.css';
+import * as tempUtils from '../../utils/temperature';
 
 ForecastDay.propTypes = {
-  day: PropTypes.arrayOf(
-    PropTypes.shape({
-      hour: PropTypes.shape({
-        condition: PropTypes.string.isRequired,
-        temperature: PropTypes.number.isRequired,
-        time: PropTypes.string.isRequired
+  day: PropTypes.shape({
+    hours: PropTypes.arrayOf(
+      PropTypes.shape({
+        hour: PropTypes.shape({
+          time: PropTypes.string.isRequired,
+          condition: PropTypes.string.isRequired,
+          temperature: PropTypes.number.isRequired
+        })
       })
-    })
-  )
+    ),
+    sums: PropTypes.object.isRequired
+  })
 };
 
-const getRandomColor = () =>
-  ['red', 'blue', 'green', 'yellow', 'black', 'grey', 'orange', 'purple'][
-    Math.floor(Math.random() * 8)
-  ];
-
 function ForecastDay(props) {
-  const day = props.day;
-  if (day) console.log(day);
+  const hours = props.day.hours;
   return (
-    <div className="forecast-day" style={{ backgroundColor: getRandomColor() }}>
-      {Object.values(day).map((d, i) => {
-        return <div key={i}>{d.hour.time}</div>;
-      })}
+    <div className="forecast-day">
+      <table className="table table-hover table-bordered">
+        <thead>
+          <th>Time</th>
+          <th>Temp</th>
+        </thead>
+        <tbody>
+          {Object.values(hours)
+            .slice(0, 10)
+            .map((d, i) => {
+              return (
+                <tr key={i}>
+                  <td>{d.hour.time}</td>
+                  <td>
+                    {tempUtils.convert({
+                      toScale: tempUtils.FAHRENHEIT,
+                      value: d.hour.temperature,
+                      fromScale: tempUtils.KELVIN
+                    })}
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
     </div>
   );
 }

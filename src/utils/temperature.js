@@ -2,40 +2,37 @@ export const FAHRENHEIT = 'f';
 export const CELSIUS = 'c';
 export const KELVIN = 'k';
 
-export const convert = (from, to) => {
-  if (!from || !from.scale || !from.value)
-    throw "'from' must contain an object with the shape {scale: 'f'|'c'|'k', value: {number}}";
-  if (!to || !to.scale || !to.value)
-    throw "'to' must contain an object with the shape {scale: 'f'|'c'|'k', value: {number}}";
+const scales = [FAHRENHEIT, CELSIUS, KELVIN];
 
-  const fromScale = from.scale.toLowerCase();
-  const toScale = to.scale.toLowerCase();
+export const convert = input => {
+  if (!input || !input.fromScale || !input.value || !input.toScale)
+    throw `Missing either fromScale, value, or toScale`;
 
-  if (!scales.findIndex(s => s === fromScale))
-    throw `'from.scale' must be one of the following values: ${scales}`;
-  if (!scales.findIndex(s => s === toScale))
-    throw `'to.scale' must be one of the following values: ${scales}`;
+  const fromScale = input.fromScale.toLowerCase();
+  const toScale = input.toScale.toLowerCase();
+  const fromValue = input.value;
 
-  if (from.scale === to.scale) return from.value;
+  if (scales.findIndex(s => s === fromScale) === -1)
+    throw `'fromScale' must be one of the following values: ${scales}`;
+  if (scales.findIndex(s => s === toScale) === -1)
+    throw `'toScale' must be one of the following values: ${scales}`;
+
+  let returnValue = 0;
+
+  if (fromScale === toScale) returnValue = fromValue;
 
   if (fromScale === 'c') {
-    return toScale === 'f'
-      ? cToF(from.value, to.value)
-      : cToK(from.value, to.value);
+    returnValue = toScale === 'f' ? cToF(fromValue) : cToK(fromValue);
   }
   if (fromScale === 'f') {
-    return toScale === 'c'
-      ? fToC(from.value, to.value)
-      : fToK(from.value, to.value);
+    returnValue = toScale === 'c' ? fToC(fromValue) : fToK(fromValue);
   }
   if (fromScale === 'k') {
-    return toScale === 'f'
-      ? kToF(from.value, to.value)
-      : kToC(from.value, to.value);
+    returnValue = toScale === 'f' ? kToF(fromValue) : kToC(fromValue);
   }
-};
 
-const scales = [FAHRENHEIT, CELSIUS, KELVIN];
+  return Math.round(returnValue);
+};
 
 const kToF = k => (k - 273.15) * (9 / 5) + 32;
 const kToC = k => k - 273.15;
