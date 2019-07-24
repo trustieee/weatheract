@@ -38,6 +38,12 @@ class ForecastController extends Component {
   }
 
   componentDidMount() {
+    const localState = localStorage.getItem('state');
+    if (localState) {
+      this.setState({ forecast: JSON.parse(localState) });
+      return;
+    }
+
     fetch(
       `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?zip=${
         this.state.zip
@@ -77,6 +83,8 @@ class ForecastController extends Component {
           forecast.dates[date].sums = { ...groups };
           groups = {};
         });
+
+        localStorage.setItem('state', JSON.stringify(forecast));
         this.setState({ forecast: forecast });
       });
   }

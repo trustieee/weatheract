@@ -35,7 +35,7 @@ function ForecastList(props) {
 
   const forecast = props.forecast;
   if (!forecast || !forecast.city || !forecast.city.name || !forecast.dates) {
-    return <div>No weather data</div>;
+    return <div>Loading weather data...</div>;
   }
   return (
     <div className="forecast-list-container">

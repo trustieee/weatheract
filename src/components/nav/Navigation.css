@@ -1,6 +1,6 @@
 nav.app-nav {
   display: flex;
-  background-color: #353232;
+  background-color: #2e2b2b;
   flex-direction: column;
   width: 100px;
   text-align: center;
@@ -8,6 +8,5 @@ nav.app-nav {
 
 nav.app-nav > a {
   color: cornflowerblue;
-  border-bottom: 1px solid #6a8ac7;
   font-size: 19px;
 }
