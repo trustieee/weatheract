@@ -1,31 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ForecastDay from './ForecastDay';
 import './ForecastList.css';
 import * as tempUtils from '../../utils/temperature';
 
-ForecastList.propTypes = {
-  forecast: PropTypes.shape({
-    city: PropTypes.shape({
-      coord: PropTypes.shape({
-        lat: PropTypes.number,
-        lon: PropTypes.number
-      }),
-      country: PropTypes.string,
-      id: PropTypes.number,
-      name: PropTypes.string
-    }),
-    dates: PropTypes.object
-  }),
-  onZipChange: PropTypes.func.isRequired
-};
-
-function ForecastList(props) {
+const ForecastList = props => {
   const [toScale, setToScale] = useState(tempUtils.FAHRENHEIT);
   const [fromScale, setFromScale] = useState(tempUtils.KELVIN);
   const [isEditing, setIsEditing] = useState(false);
+  const [editingZipValue, setEditingZipValue] = useState(12345);
 
-  const handleScaleClick = function() {
+  useEffect(() => {
+    setEditingZipValue(props.zip);
+  }, [props.zip]);
+
+  const handleScaleClick = () => {
     const previousScale = toScale;
     const nextScale =
       tempUtils.scales.indexOf(previousScale) === tempUtils.scales.length - 1
@@ -35,21 +24,32 @@ function ForecastList(props) {
     setFromScale(previousScale);
   };
 
-  const handleLocClick = function() {
+  const handleLocClick = () => {
     setIsEditing(!isEditing);
   };
 
-  const handleZipSubmit = function(event) {
-    debugger;
+  const handleZipSubmit = event => {
     event.preventDefault();
     setIsEditing(!isEditing);
-    props.onZipChange(event.target.zip.value);
+    setEditingZipValue(event.target.zip.value);
+    props.onZipChange(parseInt(event.target.zip.value));
+  };
+
+  const handleOnZipType = event => {
+    const re = /^[0-9\b]+$/;
+    if (
+      (!event.target.value && event.target.value !== '') ||
+      (event.target.value.length <= 5 && re.test(event.target.value))
+    ) {
+      setEditingZipValue(event.target.value);
+    }
   };
 
   const forecast = props.forecast;
   if (!forecast || !forecast.city || !forecast.city.name || !forecast.dates) {
-    return <div>Loading weather data...</div>;
+    return <div />;
   }
+
   return (
     <div className="forecast-list-container">
       <div className="forecast-list-header-container">
@@ -61,6 +61,8 @@ function ForecastList(props) {
                 className="form-control-sm"
                 name="zip"
                 placeholder="enter zip..."
+                value={editingZipValue}
+                onChange={handleOnZipType}
               />
             </form>
           ) : (
@@ -88,6 +90,23 @@ function ForecastList(props) {
       </div>
     </div>
   );
-}
+};
+
+ForecastList.propTypes = {
+  forecast: PropTypes.shape({
+    city: PropTypes.shape({
+      coord: PropTypes.shape({
+        lat: PropTypes.number,
+        lon: PropTypes.number
+      }),
+      country: PropTypes.string,
+      id: PropTypes.number,
+      name: PropTypes.string
+    }),
+    dates: PropTypes.object
+  }),
+  onZipChange: PropTypes.func.isRequired,
+  zip: PropTypes.number.isRequired
+};
 
 export default ForecastList;
