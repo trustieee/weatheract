@@ -1,5 +1,10 @@
+.forecast-list-header-container {
+  text-align: center;
+}
+
 .forecast-list-header {
   text-align: center;
+  display: inline-block;
 }
 
 .forecast-list {
@@ -19,13 +24,13 @@
   flex-direction: column;
 }
 
-.forecast-list-header > .scale {
+.forecast-list-header-container > .header-clickable {
   font-size: 20px;
   margin-left: 5px;
-  border-bottom: solid 3px cornflowerblue;
+  border-bottom: solid 1px cornflowerblue;
+  display: inline-block;
 }
 
-.forecast-list-header > .scale:hover {
+.forecast-list-header-container > .header-clickable:hover {
   cursor: pointer;
-  font-weight: bold;
 }

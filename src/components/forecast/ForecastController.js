@@ -20,8 +20,12 @@ class ForecastController extends Component {
         city: {},
         dates: {}
       },
-      zip: 32765
+      zip: 90210
     };
+  }
+
+  handleZipChange(zip) {
+    console.log(zip);
   }
 
   formattedDate(time) {
@@ -38,7 +42,9 @@ class ForecastController extends Component {
   }
 
   componentDidMount() {
-    const localState = localStorage.getItem('state');
+    const localState = localStorage.getItem(
+      `weatheract-state-${this.state.zip}`
+    );
     if (localState) {
       this.setState({ forecast: JSON.parse(localState) });
       return;
@@ -84,13 +90,21 @@ class ForecastController extends Component {
           groups = {};
         });
 
-        localStorage.setItem('state', JSON.stringify(forecast));
+        localStorage.setItem(
+          `weatheract-state-${this.state.zip}`,
+          JSON.stringify(forecast)
+        );
         this.setState({ forecast: forecast });
       });
   }
 
   render() {
-    return <ForecastList forecast={this.state.forecast} />;
+    return (
+      <ForecastList
+        forecast={this.state.forecast}
+        onZipChange={this.handleZipChange}
+      />
+    );
   }
 }
 

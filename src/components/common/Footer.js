@@ -4,7 +4,15 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="app-footer">
-      <span>&copy; 2019 - mariocatch</span>
+      <span>
+        <a
+          href="https://github.com/mariocatch"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          &copy; 2019 - mariocatch
+        </a>
+      </span>
     </footer>
   );
 }
